@@ -16,7 +16,7 @@ This project focuses on HR data analysis by integrating Snowflake (cloud data wa
 - **Snowflake** – cloud data warehousing, dynamic date table creation
 - **Amazon S3** – external stage for file storage
 - **Power BI** – business intelligence and visualization
--
+  
 
 ## Project Setup
 
