@@ -31,7 +31,7 @@ This project focuses on HR data analysis by integrating Snowflake (cloud data wa
    - Imported required tables into the model.
    - Created measures and relationships between tables.
 
-## 📄 Report Pages
+##  **Report Pages**
 
 1. **Overview**  
    Active employees count, inactive employees count, attrition rate, department distribution, and hiring trends.
@@ -45,7 +45,7 @@ This project focuses on HR data analysis by integrating Snowflake (cloud data wa
 4. **Attrition**  
    Insights on attrition by tenure, attrition by hiredate, attrition by over time requirement
 
-## ✅ Recommendations
+##  **Recommendations**
 
 Based on the data, the following recommendations are made:
 
