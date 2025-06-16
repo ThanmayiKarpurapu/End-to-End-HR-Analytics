@@ -1,32 +1,67 @@
-# End-to-End-HR-Analytics
-End-to-end HR analytics project using Snowflake, S3, and Power BI reports
+## End-to-End HR Analytics Project   
+Cloud-Based HR Data Pipeline using **Snowflake**, **Amazon S3**, and **Power BI**
+
+This project simulates a complete HR analytics pipeline—from raw data in Amazon S3 to dashboards in Power BI—using **cloud-native ETL with Snowflake**. It highlights secure data ingestion, data modeling, and business intelligence for actionable HR insights.
 
 
-This project focuses on HR data analysis by integrating Snowflake (cloud data warehouse) with Power BI to generate interactive dashboards and insights. The objective is to help HR teams understand workforce trends and support data-driven decisions.
+## Project Objective
 
-##  Overview
+Help HR teams make informed, data-driven decisions by transforming raw HR data into structured insights through:
+- Secure data ingestion
+- Cloud data warehousing
+- Dimensional modeling
+- Real-time dashboarding
 
-- Data is stored in Snowflake and loaded via S3 stages.
-- Power BI connected directly to Snowflake
-- The report contains 4 interactive pages covering Overview, Demographics, Performance Tracker, Attrition
-- Actionable recommendations are provided based on data insights.
 
-##  Technologies Used
+## Technologies & Tools
 
-- **Snowflake** – cloud data warehousing, dynamic date table creation
-- **Amazon S3** – external stage for file storage
-- **Power BI** – business intelligence and visualization
-  
+| Layer              | Tool/Technology                                  |
+|--------------------|--------------------------------------------------|
+| Cloud Storage      | **Amazon S3**                                    |
+| Data Warehouse     | **Snowflake**                                    |
+| ETL Mechanism      | **External Stage**, **Storage Integration**, `COPY INTO` |
+| Data Modeling      | **Star Schema**, **DimDate** generation          |
+| BI & Visualization | **Power BI**                                     |
 
-## Project Setup
 
-1. **Snowflake Setup**
-   - Created `POWERBI_HRANALYTICS` database and `PBI_Data` schema.
-   - Created tables: `Employee`, `PerformanceRating`, `EducationLevel`, `RatingLevel`, `SatisfiedLevel`, `DimDate`.
-   - Loaded CSV data into Snowflake using `COPY INTO` and external S3 stage.
-   - Built a `DimDate` table for time intelligence in reports.
+## Architecture Workflow
 
-2. **Power BI Setup**
+1. **Raw Data Upload** → Amazon S3  
+2. **Secure Integration** → Snowflake IAM Role & Storage Integration  
+3. **Staging & Load** → External Stage in Snowflake + `COPY INTO`  
+4. **Data Modeling** → Snowflake tables (Fact & Dimension)  
+5. **Date Table Creation** → Fully automated `DimDate` SQL script  
+6. **Visualization** → Power BI report connected to Snowflake  
+
+
+## Dataset & Tables
+
+| Table Name          | Description                              |
+|---------------------|------------------------------------------|
+| `Employee`          | Main employee attributes & HR metrics    |
+| `PerformanceRating` | Satisfaction scores & manager reviews    |
+| `EducationLevel`    | Education levels (lookup)                |
+| `RatingLevel`       | Rating categories (lookup)               |
+| `SatisfiedLevel`    | Satisfaction levels (lookup)             |
+| `DimDate`           | Dynamic time dimension (for Power BI)    |
+
+
+## ETL Process in Snowflake
+
+- Configured `STORAGE INTEGRATION` using IAM role
+- Created an external stage to securely access files in `s3://myhranalyticsproject`
+- Used `COPY INTO` to ingest CSV data into Snowflake tables
+- Applied `on_error='continue'` to handle data anomalies gracefully
+
+Example:
+```sql
+COPY INTO Employee
+FROM @pbi_stage2/Employee.csv
+FILE_FORMAT = (TYPE=CSV FIELD_DELIMITER=',' SKIP_HEADER=1)
+ON_ERROR = 'continue';
+```
+
+## **Power BI Setup**
    - Connected to Snowflake using native Power BI connector.
    - Imported required tables into the model.
    - Created measures and relationships between tables.
