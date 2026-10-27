@@ -1,93 +1,209 @@
-## End-to-End HR Analytics Project   
-Cloud-Based HR Data Pipeline using **Snowflake**, **Amazon S3**, and **Power BI**
+# End-to-End HR Analytics | AWS S3, Snowflake & Power BI
 
-This project simulates a complete HR analytics pipeline—from raw data in Amazon S3 to dashboards in Power BI—using **cloud-native ETL with Snowflake**. It highlights secure data ingestion, data modeling, and business intelligence for actionable HR insights.
+### Cloud Data Engineering | SQL | Data Modeling | Business Intelligence
 
+Developed an end-to-end HR analytics solution integrating **Amazon S3, Snowflake, SQL, and Power BI** to transform raw employee data into structured, actionable business insights.
 
-## Project Objective
+The project covers cloud data ingestion, data warehousing, dimensional modeling, and interactive reporting across **1,470 employee records**, helping explore workforce trends, employee performance, and attrition.
 
-Help HR teams make informed, data-driven decisions by transforming raw HR data into structured insights through:
-- Secure data ingestion
-- Cloud data warehousing
-- Dimensional modeling
-- Real-time dashboarding
+## 📊 Project Dashboard
 
+**[View Power BI Dashboard (PDF)](https://github.com/ThanmayiKarpurapu/End-to-End-HR-Analytics/blob/main/HRANALYTICS_SNOWFLAKE.pdf)**
 
-## Technologies & Tools
+**[View Power BI Project File](YOUR_PBIX_LINK)**
 
-| Layer              | Tool/Technology                                  |
-|--------------------|--------------------------------------------------|
-| Cloud Storage      | **Amazon S3**                                    |
-| Data Warehouse     | **Snowflake**                                    |
-| ETL Mechanism      | **External Stage**, **Storage Integration**, `COPY INTO` |
-| Data Modeling      | **Star Schema**, **DimDate** generation          |
-| BI & Visualization | **Power BI**                                     |
+## 🎯 Business Objective
 
+Build a centralized analytics solution that enables HR teams to:
 
-## Architecture Workflow
+- Monitor workforce KPIs and hiring trends.
+- Analyze employee demographics and performance.
+- Identify potential factors associated with employee attrition.
+- Support workforce planning and retention strategies.
+- Improve access to structured, reliable HR reporting.
 
-1. **Raw Data Upload** → Amazon S3  
-2. **Secure Integration** → Snowflake IAM Role & Storage Integration  
-3. **Staging & Load** → External Stage in Snowflake + `COPY INTO`  
-4. **Data Modeling** → Snowflake tables (Fact & Dimension)  
-5. **Date Table Creation** → Fully automated `DimDate` SQL script  
-6. **Visualization** → Power BI report connected to Snowflake  
+## 🛠️ Technologies & Tools
 
+| Component | Technology |
+|---|---|
+| Cloud Storage | Amazon S3 |
+| Data Warehouse | Snowflake |
+| Data Ingestion | Storage Integration, External Stage, `COPY INTO` |
+| Data Transformation | SQL |
+| Data Modeling | Star Schema, Fact & Dimension Tables, DimDate |
+| Business Intelligence | Microsoft Power BI |
+| Reporting | KPI Dashboards, Trend Analysis, Interactive Visualizations |
 
-## Dataset & Tables
+## 🏗️ Architecture & Data Pipeline
 
-| Table Name          | Description                              |
-|---------------------|------------------------------------------|
-| `Employee`          | Main employee attributes & HR metrics    |
-| `PerformanceRating` | Satisfaction scores & manager reviews    |
-| `EducationLevel`    | Education levels (lookup)                |
-| `RatingLevel`       | Rating categories (lookup)               |
-| `SatisfiedLevel`    | Satisfaction levels (lookup)             |
-| `DimDate`           | Dynamic time dimension (for Power BI)    |
+**Amazon S3 → Snowflake → Data Modeling → Power BI**
 
+1. **Data Storage:** Uploaded raw HR datasets to Amazon S3.
+2. **Secure Integration:** Configured Snowflake storage integration using an AWS IAM role.
+3. **Data Ingestion:** Created an external stage and loaded CSV datasets using Snowflake's `COPY INTO` command.
+4. **Data Preparation:** Organized employee, performance, and lookup data into structured Snowflake tables.
+5. **Dimensional Modeling:** Created fact and dimension relationships, including a dynamically generated `DimDate` table.
+6. **Business Intelligence:** Connected Power BI to Snowflake, built relationships and measures, and developed interactive dashboards.
 
-## ETL Process in Snowflake
+## 🗄️ Database Design
 
-- Configured `STORAGE INTEGRATION` using IAM role
-- Created an external stage to securely access files in `s3://myhranalyticsproject`
-- Used `COPY INTO` to ingest CSV data into Snowflake tables
-- Applied `on_error='continue'` to handle data anomalies gracefully
+The Snowflake data warehouse contains the following tables:
 
-Example:
+| Table | Description |
+|---|---|
+| `Employee` | Employee attributes, department information, and HR metrics |
+| `PerformanceRating` | Employee performance reviews and satisfaction scores |
+| `EducationLevel` | Education-level lookup data |
+| `RatingLevel` | Performance rating categories |
+| `SatisfiedLevel` | Satisfaction-level lookup data |
+| `DimDate` | SQL-generated date dimension for time-based reporting |
+
+The data model supports analysis across employee demographics, performance, hiring trends, and attrition.
+
+## ⚙️ Data Ingestion & ETL
+
+Implemented a cloud-based data ingestion workflow using Snowflake and Amazon S3.
+
+**Key Implementation Steps:**
+- Configured a Snowflake `STORAGE INTEGRATION` with an AWS IAM role.
+- Created an external stage to access HR datasets stored in Amazon S3.
+- Loaded CSV files into Snowflake tables using `COPY INTO`.
+- Created a dynamic date dimension to support time-based analysis.
+- Prepared structured datasets for Power BI reporting.
+
+**Example Snowflake SQL:**
+
 ```sql
 COPY INTO Employee
 FROM @pbi_stage2/Employee.csv
-FILE_FORMAT = (TYPE=CSV FIELD_DELIMITER=',' SKIP_HEADER=1)
+FILE_FORMAT = (
+    TYPE = CSV
+    FIELD_DELIMITER = ','
+    SKIP_HEADER = 1
+)
 ON_ERROR = 'continue';
 ```
 
-## **Power BI Setup**
-   - Connected to Snowflake using native Power BI connector.
-   - Imported required tables into the model.
-   - Created measures and relationships between tables.
+The `ON_ERROR = 'continue'` option allows loading to proceed when problematic records are encountered. Rejected records should be reviewed using Snowflake's load validation and history capabilities to ensure data quality.
 
-##  **Report Pages**
+## 📈 Power BI Data Modeling & Reporting
 
-1. **Overview**  
-   Active employees count, inactive employees count, attrition rate, department distribution, and hiring trends.
+Connected Power BI to Snowflake using the native connector, imported the required tables, established relationships, and created analytical measures.
 
-2. **Demographics**  
-   Breakdown of Employees by age, marital status, gender, and ethnicity.
+Developed four report pages:
 
-3. **Performance Tracker**  
-   Visuals on job satisfaction, work-life balance, and relationship with management.
+### 1. Workforce Overview
 
-4. **Attrition**  
-   Insights on attrition by tenure, attrition by hiredate, attrition by over time requirement
+Provides an executive-level view of employee headcount and workforce trends.
 
-##  **Recommendations**
+**Key Metrics:**
+- Total Employees: **1,470**
+- Active Employees: **1,233**
+- Inactive Employees: **237**
+- Attrition Rate: **16.1%**
 
-Based on the data, the following recommendations are made:
+**Visualizations:**
+- Employee hiring trends
+- Active employees by department
+- Workforce distribution by job role
 
-- Address high attrition in departments with high overtime and travel frequency.
-- Improve work-life balance and relationship satisfaction for lower-performing teams.
-- Increase training opportunities for employees with low self-ratings.
-- Focus on departments with low job satisfaction for retention strategies.
-- Enhance training programs and continuous learning programs to reduce junior employee attrition
-  
-  
+### 2. Employee Demographics
+
+Analyzes workforce composition across demographic categories.
+
+**Key Analyses:**
+- Employee distribution by age group
+- Gender and marital status
+- Ethnicity and average salary
+- Workforce demographic comparisons
+
+### 3. Performance Tracker
+
+Tracks individual employee performance and satisfaction metrics over time.
+
+**Key Analyses:**
+- Job satisfaction
+- Environment satisfaction
+- Manager ratings
+- Self-ratings
+- Work-life balance
+
+### 4. Employee Attrition Analysis
+
+Explores workforce attrition patterns to identify potential retention challenges.
+
+**Key Analyses:**
+- Attrition by department and job role
+- Attrition by overtime requirement
+- Attrition by business travel frequency
+- Attrition by employee tenure
+- Attrition trends by hiring date
+
+## 💡 Business Insights & Recommendations
+
+### 1. Workforce Attrition
+
+The dataset contains **237 inactive employees out of 1,470 total employees**, representing an overall attrition rate of approximately **16.1%**.
+
+**Recommendation:** Monitor attrition trends across departments and job roles to identify areas requiring further investigation.
+
+### 2. Overtime & Retention
+
+The attrition dashboard enables comparisons between employees with and without overtime requirements.
+
+**Recommendation:** Investigate whether overtime-intensive roles experience higher attrition and evaluate potential workload or staffing adjustments.
+
+### 3. Business Travel
+
+Employee attrition can be analyzed across different travel-frequency categories.
+
+**Recommendation:** Assess whether frequent travel is associated with retention challenges and consider employee support initiatives where appropriate.
+
+### 4. Employee Tenure
+
+Attrition patterns vary across employee tenure groups.
+
+**Recommendation:** Identify tenure periods associated with elevated attrition and evaluate onboarding, career development, and retention initiatives.
+
+### 5. Employee Performance & Satisfaction
+
+The Performance Tracker provides visibility into satisfaction scores, manager ratings, and work-life balance.
+
+**Recommendation:** Use these indicators to identify areas for further employee engagement and performance analysis.
+
+## 📌 Business Value
+
+This project demonstrates how cloud data engineering and business intelligence can support workforce analytics by:
+
+- Consolidating HR datasets into a structured cloud data warehouse.
+- Supporting consistent workforce KPI reporting.
+- Enabling interactive analysis of employee performance and attrition.
+- Providing a foundation for evidence-based workforce planning.
+- Connecting technical data workflows with business decision-making.
+
+## 🔍 Skills Demonstrated
+
+**Data Engineering:** AWS S3, Snowflake, Cloud Data Ingestion, SQL, ETL
+
+**Data Modeling:** Relational Tables, Dimensional Modeling, Star Schema, Date Dimensions
+
+**Business Intelligence:** Power BI, Data Relationships, KPI Reporting, Dashboard Development
+
+**Business Analytics:** Workforce Analysis, Trend Analysis, Attrition Analysis, Data-Driven Recommendations
+
+## 📁 Project Files
+
+- **Dashboard PDF:** Four-page HR Analytics report.
+- **Snowflake SQL Scripts:** Data ingestion, table creation, and date dimension scripts.
+- **Power BI File:** Report and data model, where available.
+- **README:** Project architecture, implementation, and business insights.
+
+## 👩‍💻 Author
+
+**Sai Thanmayi Karpurapu**
+
+Financial Analytics | Business Analytics | Strategy & Operations
+
+**LinkedIn:** [Add LinkedIn URL]
+
+**GitHub:** [Add GitHub Profile URL]
