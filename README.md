@@ -10,7 +10,7 @@ The project covers cloud data ingestion, data warehousing, dimensional modeling,
 
 **[View Power BI Dashboard (PDF)](https://github.com/ThanmayiKarpurapu/End-to-End-HR-Analytics/blob/main/HRANALYTICS_SNOWFLAKE.pdf)**
 
-**[View Power BI Project File](YOUR_PBIX_LINK)**
+**[View Power BI Project File](https://github.com/ThanmayiKarpurapu/End-to-End-HR-Analytics/blob/main/HRANALYTICS_SNOWFLAKE.pbix)**
 
 ## 🎯 Business Objective
 
@@ -187,9 +187,7 @@ This project demonstrates how cloud data engineering and business intelligence c
 
 **Data Modeling:** Relational Tables, Dimensional Modeling, Star Schema, Date Dimensions
 
-**Business Intelligence:** Power BI, Data Relationships, KPI Reporting, Dashboard Development
-
-**Business Analytics:** Workforce Analysis, Trend Analysis, Attrition Analysis, Data-Driven Recommendations
+**Business Intelligence & Reporting**: Power BI, DAX Measures, Power Query, Interactive Dashboards, KPI Reporting, Data Visualization, Data-Driven Recommendations
 
 ## 📁 Project Files
 
@@ -202,8 +200,4 @@ This project demonstrates how cloud data engineering and business intelligence c
 
 **Sai Thanmayi Karpurapu**
 
-Financial Analytics | Business Analytics | Strategy & Operations
 
-**LinkedIn:** [Add LinkedIn URL]
-
-**GitHub:** [Add GitHub Profile URL]
